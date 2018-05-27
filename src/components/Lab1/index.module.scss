@@ -1,0 +1,20 @@
+.lab {
+  display: grid;
+
+  height: 100%;
+
+  grid-template-columns: 60% 40%;
+  grid-template-areas: "graphContainer info";
+}
+
+.graphContainer {
+  border: 1px solid black;
+
+  grid-area: graphContainer;
+}
+
+.info {
+  background-color: red;
+
+  grid-area: info;
+}
