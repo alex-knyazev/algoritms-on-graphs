@@ -1,0 +1,30 @@
+.adjacencyInfo {
+  width: 100%;
+}
+
+.adjacencyList,
+.topsDegrees {
+  border-collapse: collapse;
+  td {
+    padding: 5px;
+
+    border: 1px solid red;
+  }
+}
+
+.topsDegrees td {
+  padding: 5px 40px;
+}
+
+.adjacencyMatrix {
+  border-collapse: collapse;
+  td {
+    padding: 6px;
+
+    border: 1px solid rgb(172, 0, 0);
+  }
+
+  .mainDiagonalCell {
+    background-color: red;
+  }
+}

@@ -1,9 +1,7 @@
 .layout {
   display: grid;
 
-  height: 100vh;
-
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 90vh;
   grid-template-areas:
     "header"
     "main";
@@ -14,5 +12,7 @@
 }
 
 .main {
+  max-height: 100%;
+
   grid-area: main;
 }

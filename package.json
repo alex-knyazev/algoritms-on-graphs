@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
     "lodash.clonedeep": "^4.5.0",
     "lodash.get": "^4.4.2",
     "moment": "^2.22.1",
@@ -25,7 +26,8 @@
     "start": "REACT_APP_BEM_LANG=ru react-app-rewired start",
     "build": "REACT_APP_BEM_LANG=ru react-app-rewired build",
     "test": "react-scripts test --env=jsdom ",
-    "test:ci": "env CI=true  react-scripts test --env=jsdom ./src/** --testPathIgnorePatterns=src/__integration_tests ",
+    "test:ci":
+      "env CI=true  react-scripts test --env=jsdom ./src/** --testPathIgnorePatterns=src/__integration_tests ",
     "test:coverage": "npm run test -- --coverage --collectCoverageFrom=src/**/*.js*",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .js*",
@@ -35,12 +37,12 @@
   "proxy": "http://localhost:3001",
   "devDependencies": {
     "babel-eslint": "^8.2.3",
-    "classnames": "^2.2.5",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-react": "^7.7.0",
     "node-sass": "^4.9.0",
-    "react-app-rewire-alias": "git+https://github.com/viniciusmelquiades/react-app-rewire-alias.git",
+    "react-app-rewire-alias":
+      "git+https://github.com/viniciusmelquiades/react-app-rewire-alias.git",
     "react-app-rewire-css-modules": "github:codebandits/react-app-rewire-css-modules",
     "react-app-rewired": "^1.5.2",
     "react-styleguidist": "^7.0.14",

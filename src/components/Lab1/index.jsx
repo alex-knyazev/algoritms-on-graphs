@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import vis from 'vis';
 
+import AdjacencyInfo from '@/components/AdjacencyInfo';
+
+import makeGraphSimple from './makeGraphSimple';
+
 import styles from './index.module.scss';
 
-const TOPS = [
+const RELATIONS = [
   [1, 6],
   [12, 5],
   [2, 1],
@@ -33,11 +37,16 @@ class Lab1 extends Component {
     super(props);
     this.graphContainerRef = React.createRef();
     this.state = {
-      network: {},
+      relations: RELATIONS,
     };
   }
 
   componentDidMount = () => {
+    this.makeGraph();
+  };
+
+  makeGraph = () => {
+    const { relations } = this.state;
     const graphContainer = this.graphContainerRef.current;
 
     const nodes = [];
@@ -46,7 +55,7 @@ class Lab1 extends Component {
     }
 
     const visNodes = new vis.DataSet(nodes);
-    const visEdges = new vis.DataSet(TOPS.map(el => ({
+    const visEdges = new vis.DataSet(relations.map(el => ({
       from: el[0],
       to: el[1],
     })));
@@ -59,22 +68,43 @@ class Lab1 extends Component {
     const options = {
       height: '100%',
       width: '100%',
+      nodes: {
+        color: 'rgb(255,73,69)',
+        font: {
+          color: 'white',
+          size: 20, // px
+        },
+      },
+      edges: {
+        color: {
+          color: 'black',
+        },
+      },
     };
 
-    const network = new vis.Network(graphContainer, data, options);
+    new vis.Network(graphContainer, data, options);
+  };
 
-    this.setState({
-      network,
-    });
+  handleToSimpleClick = () => {
+    const { relations } = this.state;
+
+    // здесь мы типа сдалаем граф простым
+    makeGraphSimple(relations);
   };
 
   render() {
-    const { network } = this.state;
+    const { relations } = this.state;
 
     return (
       <div className={styles.lab}>
+        <div className={styles.menu}>
+          <button onClick={this.handleToSimpleClick}>К простому</button>
+        </div>
         <div className={styles.graphContainer} ref={this.graphContainerRef} />
-        <div className={styles.info} />
+
+        <div className={styles.info}>
+          <AdjacencyInfo topsAmount={TOPS_AMOUNT} relations={relations} />
+        </div>
       </div>
     );
   }
