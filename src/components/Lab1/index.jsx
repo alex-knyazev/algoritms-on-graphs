@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import vis from 'vis';
 
 import AdjacencyInfo from '@/components/AdjacencyInfo';
+import Modal from '@/components/Modal';
+import Trees from '@/components/Trees';
 
-import makeGraphSimple from './makeGraphSimple';
+import makeGraphSimple from '@/utils/makeGraphSimple';
+import makeGraph from '@/utils/makeGraph';
 
 import styles from './index.module.scss';
 
@@ -37,59 +39,54 @@ class Lab1 extends Component {
     super(props);
     this.graphContainerRef = React.createRef();
     this.state = {
-      relations: RELATIONS,
+      relations: RELATIONS.map(relation => [relation[0] - 1, relation[1] - 1]),
+      showTrees: false,
+      trees: [],
     };
   }
 
   componentDidMount = () => {
-    this.makeGraph();
-  };
-
-  makeGraph = () => {
     const { relations } = this.state;
     const graphContainer = this.graphContainerRef.current;
-
+    const topsAmount = TOPS_AMOUNT;
     const nodes = [];
-    for (let i = 1; i <= TOPS_AMOUNT; i += 1) {
-      nodes.push({ id: i, label: `Node ${i}` });
+    for (let i = 0; i < topsAmount; i += 1) {
+      nodes.push({ id: i, label: `Узел ${i}` });
     }
+    makeGraph(relations, graphContainer, nodes);
+  };
 
-    const visNodes = new vis.DataSet(nodes);
-    const visEdges = new vis.DataSet(relations.map(el => ({
-      from: el[0],
-      to: el[1],
-    })));
+  componentDidUpdate = () => {
+    const { relations } = this.state;
+    const graphContainer = this.graphContainerRef.current;
+    const topsAmount = TOPS_AMOUNT;
+    const nodes = [];
+    for (let i = 0; i < topsAmount; i += 1) {
+      nodes.push({ id: i, label: `Узел ${i}` });
+    }
+    makeGraph(relations, graphContainer, nodes);
+  };
 
-    const data = {
-      nodes: visNodes,
-      edges: visEdges,
-    };
-
-    const options = {
-      height: '100%',
-      width: '100%',
-      nodes: {
-        color: 'rgb(255,73,69)',
-        font: {
-          color: 'white',
-          size: 20, // px
-        },
-      },
-      edges: {
-        color: {
-          color: 'black',
-        },
-      },
-    };
-
-    new vis.Network(graphContainer, data, options);
+  onCloseModalClick = () => {
+    this.setState({
+      showTrees: false,
+    });
   };
 
   handleToSimpleClick = () => {
     const { relations } = this.state;
+    const simpleRelations = makeGraphSimple(relations);
+    this.setState({
+      relations: simpleRelations,
+    });
+  };
 
-    // здесь мы типа сдалаем граф простым
-    makeGraphSimple(relations);
+  showSpanningTree = (treeRelations) => {
+    const { spanningTreeByDFS, spanningTreeByBFS } = treeRelations;
+    this.setState({
+      showTrees: true,
+      trees: [spanningTreeByDFS, spanningTreeByBFS],
+    });
   };
 
   render() {
@@ -103,8 +100,17 @@ class Lab1 extends Component {
         <div className={styles.graphContainer} ref={this.graphContainerRef} />
 
         <div className={styles.info}>
-          <AdjacencyInfo topsAmount={TOPS_AMOUNT} relations={relations} />
+          <AdjacencyInfo
+            topsAmount={TOPS_AMOUNT}
+            relations={relations}
+            showSpanningTree={this.showSpanningTree}
+          />
         </div>
+        {this.state.showTrees && (
+          <Modal onCloseClick={this.onCloseModalClick}>
+            <Trees trees={this.state.trees} />
+          </Modal>
+        )}
       </div>
     );
   }

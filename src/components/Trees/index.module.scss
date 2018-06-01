@@ -1,0 +1,20 @@
+.trees {
+  display: flex;
+
+  width: 90vw;
+  height: 650px;
+
+  background-color: white;
+}
+
+.trees > div {
+  width: 50%;
+
+  border: 1px solid black;
+
+  h2 {
+    margin: 0;
+    margin-left: 10px;
+    padding: 0;
+  }
+}

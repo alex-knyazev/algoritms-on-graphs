@@ -1,19 +1,21 @@
 import React from 'react';
 import cn from 'classnames';
 
-import findAdjacencyList from './findAdjacencyList';
+import findAdjacencyList from '@/utils/findAdjacencyList';
 import findAdjacencyMatrix from './findAdjacencyMatrix';
-import findTopsDegrees from './findTopsDegrees';
+import findNodesDegrees from '@/utils/findNodesDegrees';
 import findTopsAndEdgesClusters from './findTopsAndEdgesClusters';
+import findConnectedComponents from './findConnectedComponents';
+import findSpanningTrees from './findSpanningTrees';
 
 import styles from './index.module.scss';
 
 export default (props) => {
-  const { topsAmount, relations } = props;
+  const { topsAmount, relations, showSpanningTree } = props;
 
   const adjacencyList = findAdjacencyList(topsAmount, relations);
   const adjacencyMatrix = findAdjacencyMatrix(topsAmount, relations);
-  const topsDegrees = findTopsDegrees(topsAmount, relations);
+  const topsDegrees = findNodesDegrees(topsAmount, relations);
 
   const {
     isolatedTops, hangingTops, loopsInfo, edgesInfo,
@@ -23,29 +25,45 @@ export default (props) => {
     adjacencyList,
   );
 
+  const connectedComponents = findConnectedComponents(adjacencyMatrix);
+  const spanningTreesOfComponents = findSpanningTrees(adjacencyMatrix, connectedComponents);
+
   const adjacencyListTable = makeAdjacencyListTable(adjacencyList);
   const adjacencyMatrixTable = makeAdjacencyMatrixTable(adjacencyMatrix);
   const topsDegreesTable = makeTopsDegrees(topsDegrees);
+
   return (
     <div className={styles.adjacencyInfo}>
-      <p>Количество вершин: {topsAmount}</p>
+      <p>
+        <b>Количество вершин:</b> {topsAmount}
+      </p>
 
-      <p>Список смежности: </p>
+      <p>
+        <b>Cписок смежности:</b>{' '}
+      </p>
       {adjacencyListTable}
 
-      <p>Матрица смежности: </p>
+      <p>
+        <b>Матрица смежности:</b>{' '}
+      </p>
       {adjacencyMatrixTable}
 
-      <p>Степени вершин: </p>
+      <p>
+        <b>Степени вершин:</b>{' '}
+      </p>
       {topsDegreesTable}
 
-      <p>Список изолированных вершин: {isolatedTops.join(', ')}</p>
+      <p>
+        <b>Список изолированных вершин:</b> {isolatedTops.join(', ')}
+      </p>
 
-      <p>Список &quot;висячих&quot; вершин: {hangingTops.join(', ')}</p>
+      <p>
+        <b>Список &quot;висячих&quot; вершин:</b> {hangingTops.join(', ')}
+      </p>
 
-      <p>Список &quot;висячих&quot; вершин: {hangingTops.join(', ')}</p>
-
-      <p>Петли:</p>
+      <p>
+        <b>Петли:</b>
+      </p>
       <ul>
         {Object.keys(loopsInfo).map(key => (
           <li>
@@ -54,11 +72,31 @@ export default (props) => {
         ))}
       </ul>
 
-      <p>Кратные ребра:</p>
+      <p>
+        <b>Кратные ребра:</b>
+      </p>
       <ul>
         {Object.keys(edgesInfo).map(key => (
           <li>
             {key}: кратность {edgesInfo[key]}
+          </li>
+        ))}
+      </ul>
+      <p>
+        <b>Компоненты связности:</b>
+      </p>
+      <ul>
+        {connectedComponents.map((component, index) => (
+          <li>
+            {index}: {component.map(el => el).join(', ')}
+            {component.length > 1 && (
+              <button
+                className={styles.spanningTreeButton}
+                onClick={() => showSpanningTree(spanningTreesOfComponents[index])}
+              >
+                Ост. дерево
+              </button>
+            )}
           </li>
         ))}
       </ul>
@@ -86,12 +124,12 @@ const makeAdjacencyMatrixTable = (matrix) => {
   const elementsRows = [
     <tr>
       <td>№</td>
-      {Array.from(Array(matrix.length), (el, index) => <td> {index + 1}</td>)}
+      {Array.from(Array(matrix.length), (el, index) => <td> {index}</td>)}
     </tr>,
   ];
 
   for (let i = 0; i < matrix.length; i++) {
-    const cells = [<td>{i + 1}</td>];
+    const cells = [<td>{i}</td>];
     for (let j = 0; j < matrix[i].length; j++) {
       const cellClasses = cn({
         [styles.mainDiagonalCell]: i === j,

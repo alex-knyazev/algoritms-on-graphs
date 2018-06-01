@@ -1,27 +1,29 @@
 module.exports = {
-  parser: 'babel-eslint',
-  extends: 'airbnb',
+  parser: "babel-eslint",
+  extends: "airbnb",
   rules: {
-    'react/no-did-mount-set-state': 'off',
-    'import/no-extraneous-dependencies': 'off',
-    'no-use-before-define': 'off',
-    'arrow-body-style': 'off',
-    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    "react/no-did-mount-set-state": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-use-before-define": "off",
+    "arrow-body-style": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
     // из-за ошибки в create-react-app
-    'jsx-a11y/label-has-for': 'off',
+    "jsx-a11y/label-has-for": "off",
     // из-за ошибки в create-react-app
-    'jsx-a11y/anchor-is-valid': 'off',
+    "jsx-a11y/anchor-is-valid": "off",
     // что не получилось указать aliases
-    'import/no-unresolved': 'off',
+    "import/no-unresolved": "off",
     // что не получилось указать aliases
-    'import/extensions': 'off',
-    'import/prefer-default-export': 'off',
-    'no-underscore-dangle': 'off',
-    'react/prop-types': 'off',
-    'no-plusplus': 'off',
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "no-underscore-dangle": "off",
+    "react/prop-types": "off",
+    "no-plusplus": "off",
+    "guard-for-in": "off",
+    "no-restricted-syntax": "off",
     // uncommit on developing
-    'no-console': 'off',
-    'no-debugger': 'off',
+    "no-console": "off",
+    "no-debugger": "off"
   },
   globals: {
     /* Объекты окружения в браузере */
@@ -38,6 +40,6 @@ module.exports = {
     it: true,
     test: true,
     beforeAll: true,
-    afterAll: true,
-  },
+    afterAll: true
+  }
 };

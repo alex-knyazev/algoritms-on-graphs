@@ -1,12 +1,13 @@
-const findAdjacencyMatrix = (topsAmount, tops) => {
+const findAdjacencyMatrix = (topsAmount, relations) => {
   const matrix = Array.from(Array(topsAmount), () => Array.from(Array(topsAmount), () => 0));
-  for (let i = 0; i < tops.length; i++) {
-    const relation = tops[i];
+  for (let i = 0; i < relations.length; i++) {
+    const relation = relations[i];
     const firstTop = relation[0];
     const secondTop = relation[1];
-    matrix[firstTop - 1][secondTop - 1] += 1;
+
+    matrix[firstTop][secondTop] += 1;
     if (firstTop !== secondTop) {
-      matrix[secondTop - 1][firstTop - 1] += 1;
+      matrix[secondTop][firstTop] += 1;
     }
   }
   return matrix;

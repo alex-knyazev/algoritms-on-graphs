@@ -10,7 +10,10 @@ const Header = () => {
     <div className={styles.header}>
       <ul>
         <li>
-          <Link to={routes.LAB1}>Main page</Link>
+          <Link to={routes.LAB1}>Лабораторная 1</Link>
+        </li>
+        <li>
+          <Link to={routes.LAB2}>Лабораторная 2</Link>
         </li>
       </ul>
     </div>

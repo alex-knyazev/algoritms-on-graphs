@@ -7,7 +7,16 @@
 
   background-color: rgba(6, 6, 6, 0.897);
 
-  ul li a {
-    color: yellow;
+  ul {
+    display: flex;
+
+    margin-left: 40px;
+
+    li + li {
+      margin-left: 40px;
+    }
+    a {
+      color: yellow;
+    }
   }
 }

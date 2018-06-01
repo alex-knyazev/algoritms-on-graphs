@@ -1,11 +1,11 @@
-const findAdjacencyList = (topsAmount, tops) => {
+const findAdjacencyList = (topsAmount, relations) => {
   const adjacencyList = {};
-  for (let i = 1; i <= topsAmount; i++) {
+  for (let i = 0; i < topsAmount; i++) {
     adjacencyList[i] = [];
   }
 
-  for (let i = 0; i < tops.length; i++) {
-    const relation = tops[i];
+  for (let i = 0; i < relations.length; i++) {
+    const relation = relations[i];
     const firstTop = relation[0];
     const secondTop = relation[1];
     if (adjacencyList[firstTop]) {
