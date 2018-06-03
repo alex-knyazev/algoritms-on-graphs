@@ -19,7 +19,7 @@ const makeTree = (relations, treeContainer, nodes) => {
       color: 'green',
       font: {
         color: 'white',
-        size: 14, // px
+        size: 20, // px
       },
     },
     edges: {

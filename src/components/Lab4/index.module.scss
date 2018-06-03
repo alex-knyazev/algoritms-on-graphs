@@ -1,0 +1,21 @@
+.lab {
+  display: flex;
+
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  > div:first-child {
+    width: 35%;
+
+    border-right: 1px solid red;
+  }
+}
+.info {
+  overflow: auto;
+
+  width: 65%;
+  padding-bottom: 40px;
+  padding-left: 20px;
+}
