@@ -2,10 +2,10 @@ import React from 'react';
 import cn from 'classnames';
 
 import findAdjacencyList from '@/utils/findAdjacencyList';
-import findAdjacencyMatrix from './findAdjacencyMatrix';
+import findAdjacencyMatrix from '@/utils/findAdjacencyMatrix';
 import findNodesDegrees from '@/utils/findNodesDegrees';
+import findConnectedComponents from '@/utils/findConnectedComponents';
 import findTopsAndEdgesClusters from './findTopsAndEdgesClusters';
-import findConnectedComponents from './findConnectedComponents';
 import findSpanningTrees from './findSpanningTrees';
 
 import styles from './index.module.scss';

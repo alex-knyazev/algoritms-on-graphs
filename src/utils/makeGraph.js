@@ -2,9 +2,14 @@ import vis from 'vis';
 
 const makeGraph = (relations, graphContainer, nodes, customOptions) => {
   const visNodes = new vis.DataSet(nodes);
+
+  // relations - массив массивов, в кажом - два или три элемента (третий - цвет, необязательный)
   const visEdges = new vis.DataSet(relations.map(el => ({
     from: el[0],
     to: el[1],
+    color: {
+      color: el[2] ? el[2] : 'black',
+    },
   })));
 
   const data = {
@@ -20,11 +25,6 @@ const makeGraph = (relations, graphContainer, nodes, customOptions) => {
       font: {
         color: 'white',
         size: 20, // px
-      },
-    },
-    edges: {
-      color: {
-        color: 'black',
       },
     },
     interaction: {

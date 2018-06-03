@@ -1,5 +1,10 @@
 import findAdjacencyList from '@/utils/findAdjacencyList';
 
+/**
+ * Находит отношения в графе, смежногого для данного
+ * @param {number} nodesAmount количество вершин графа
+ * @param {array} relations - отношения в графе
+ */
 const findAdditionalGraphRelations = (nodesAmount, relations) => {
   const resultRelations = [];
   const adjacencyList = findAdjacencyList(nodesAmount, relations);
